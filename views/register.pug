@@ -1,0 +1,58 @@
+html
+    head
+        title 注册界面
+        meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
+        link(rel="stylesheet", href="css/login.css")
+        script.
+            if (self != top) {
+                top.location = self.location;  //iframe中窗口对象转换成父窗口对象
+            } 
+    body
+        div(class='main')
+            div(class='box')
+                img(src="./img/11.jpg" class='bgimg')
+                form(action="/register" class='loginform' method='post')
+                    h1(class='title') 注册界面
+                    p(class='clearfix')
+                        span(class='span') 用户名：
+                        input(type="text", name='clientname',placeholder='请输入用户名' ,class='input' id='clientname')
+                    p(class='clearfix')
+                        span(class='span') 密码:
+                        input(type="password", name="password",placeholder='请输入密码' ,class='input' id='password')  
+                    p(class='clearfix')
+                        span(class='span') 上传头像:
+                        input(type="file", name="head")    
+                    p(class='clearfix')
+                        span(class='span')
+                        input(type="submit", value="注册" class='submit')
+    script(src='js/jquery-3.3.1.min.js')
+    script.
+                    $('#clientname').blur(function () {
+                        if($('#clientname').val()==''){
+                           $('.hidden').remove();
+                           $('#clientname').after('<div class="hidden">' +'用户名不能为空' + '</div>'); 
+                           return;
+                        }
+                    $.ajax({
+                        url: '/checkuser.do',
+                        type: 'post',
+                        data: 'username=' + $(this).val(),
+                        dataType: "json", //预期的服务器响应的数据类型;  json  |  html/text
+                        success: function (result) {
+                            $('.hidden').remove();
+                            if (result.code === 1) {
+                                $('#clientname').after('<div class="hidden">' +
+                                    result.message + '</div>');
+                            }
+                        },
+                        error: function (xhr, status, error) { //如果请求失败要运行的函数。
+                            alert(error + "  " + status);
+                        }
+                    });
+                }); 
+                $('#password').blur(function(){
+                    if($(this).val()==''){
+                         $('.hidden').remove();
+                         $(this).after('<div class="hidden">' +'用户密码不能为空' + '</div>'); 
+                    }
+                })

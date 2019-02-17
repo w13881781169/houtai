@@ -1,0 +1,31 @@
+{
+    "appenders": {
+            "rule_console": {
+                "type": "console"
+            },
+            "rule_file": {
+                "type": "dateFile",
+                "filename": "log/server-",
+                "pattern": "yyyy-MM-dd.log",
+                "alwaysIncludePattern": true,
+                "maxLogSize": 2024000
+            },
+            "access": {
+                "type": "file",
+                "filename": "log/access.log"
+            }
+        },
+
+        "categories": {
+
+            "default": {
+                "appenders": ["rule_console", "rule_file", "access"],
+                "level": "debug"
+            },
+
+            "dev": {
+                "appenders": ["rule_console"],
+                "level": "debug"
+            }
+        }
+}

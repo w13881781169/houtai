@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            font-style: normal;
+            text-decoration: none;
+            color: #000
+        }
+
+        i {
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'iconfont';
+            /* project id 1007034 */
+            src: url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.eot');
+            src: url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.eot?#iefix') format('embedded-opentype'),
+                url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.woff2') format('woff2'),
+                url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.woff') format('woff'),
+                url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.ttf') format('truetype'),
+                url('http://at.alicdn.com/t/font_1007034_jplmya6upcp.svg#iconfont') format('svg');
+        }
+
+        .menulist h3 {
+            height: 50px;
+            width: 100%;
+            background: #0a84c3;
+            color: white;
+            font-size: 14px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        .menulist h4 {
+            height: 40px;
+            width: 100%;
+            border-bottom: 1px solid skyblue;
+            line-height: 40px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body,
+        html,
+        .container {
+            height: 100%;
+            width: 100%;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        h1 {
+            height: 80px;
+            width: 100%;
+            background: url('img/bg.jpg') no-repeat 0 -1000px;
+            padding-left: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #fff;
+            font-weight: 400
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 20px
+        }
+
+        .leftbox {
+            height: 100%;
+            width: 180px;
+            border-right: 1px solid skyblue;
+
+        }
+
+        .rightbox {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            left: 181px;
+            top: 80px;
+            right: 0;
+            bottom: 0;
+            overflow:hidden;
+        }
+
+        .menulist i,
+        .menulist a {
+            margin-left: 20px;
+            margin-right: 10px;
+        }
+
+        .icon {
+            font-size: 16px;
+        }
+
+        .childlist {
+            border-bottom: 1px solid skyblue;
+            display: none
+        }
+
+        .childlist li {
+            margin-top: 10px;
+            margin-bottom: 10px
+        }
+
+        .childlist li:hover a {
+            color: #0a84c3;
+        }
+
+        .square {
+            height: 0;
+            width: 0;
+            border: 4px solid transparent;
+            border-left-width: 4px;
+            border-left-color: #000;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .childlist li:hover .square {
+            border-left-color: #0a84c3;
+        }
+
+        .rightlist {
+            height: 40px;
+            width: 100%;
+            border-bottom: 1px solid #0a84c3;
+            line-height: 40px
+        }
+
+        .rightlist li {
+            float: left;
+            margin-left: 10px;
+        }
+
+        .rightlist li a {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .on {
+            color: #0a84c3
+        }
+
+        .admin {height: 100%;width: 100%;}
+    </style>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $('.leftbox h4').click(function () {
+                $(this).next().slideToggle('slow');
+                $(this).toggleClass('on');
+            })
+            $('.childlist li a').click(function () {
+                $('.webmessage').text($(this).text());
+                $('.childlist li a').removeClass('on');
+                $(this).addClass('on');
+            })
+        })
+    </script>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden">
+    <div class="container clearfix">
+        <h1><img src="./img/y.jpg" alt="" class="logo"><span>后台管理中心</span></h1>
+        <div class="leftbox">
+            <ul class="menulist">
+                <h3><i class="iconfont">&#xe65d;</i>菜单列表</h3>
+                <li>
+                    <h4><i class="iconfont icon">&#xe646;</i> 用户管理</h4>
+                    <ul class="childlist">
+                        <li><a href="user_add.html" target="right"><span class="square"></span>添加用户</a></li>
+                        <li><a href="user_list.html" target="right"><span class="square"></span>用户列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h4><i class="iconfont icon">&#xe60a;</i>商品管理</h4>
+                    <ul class="childlist">
+                        <li><a href="user_add.html"><span class="square"></span>添加商品</a></li>
+                        <li><a href="user_list.html"><span class="square"></span>商品列表</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="rightbox">
+            <ul class="clearfix rightlist">
+                <li><a href="">首页&nbsp;/</a></li>
+                <li><a href="" class="webmessage">网站信息</a></li>
+            </ul>
+            <div class="admin">
+                <iframe scrolling="auto" frameborder="0" src="info.html" name="right" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

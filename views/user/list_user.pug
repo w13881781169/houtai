@@ -1,0 +1,93 @@
+doctype html
+html
+  head(lang='en')
+    meta(charset='UTF-8')
+    title 用户列表
+    link(href='css/tables.css', rel='stylesheet')
+    link(href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
+  body
+    .emp_contaner
+      h2 用户列表
+      table
+        tbody
+          tr
+            th 序号
+            th 头像
+            th 用户名
+            th 密码
+            th(colspan='2') 操作
+        each val in userlist
+          tr
+            td #{val.id}
+            td
+              -if(val.headurl) 
+                img(src=val.headurl, width='80px', height='80px')
+              -else 
+                 img(src='img/y.jpg', width='80px', height='80px')
+            td #{val.name}
+            td #{val.password}
+            td 
+              a(href='delete?uid='+ val.id) 删除
+            td
+              a(href='update?uid='+val.id, target="right") 修改
+      div
+        ul(class='pagination',id='pagination')
+      script(src="js/jquery-3.3.1.min.js")
+      script(src="js/jqPaginator.js")
+      script.
+              var currentNo = '#{currentPage}';
+              currentNo = parseInt(currentNo);
+              var pageCount = '#{pageCount}';
+              pageCount = parseInt(pageCount);
+
+              $.jqPaginator('#pagination', {
+                  totalPages: pageCount,
+                  visiblePages: 2,
+                  currentPage: currentNo,
+                  first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+                  prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+                  next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+                  last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+                  page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                  onPageChange: function (num, type) {
+                      if (type == 'change') {
+                          //这里是点击分页的回调
+                          window.location.href = 'list?pageNo=' + num;
+                      }
+                  }
+              });
+
+
+
+
+
+
+
+
+
+      //- div
+      //-   a(href="list?pageNo=1") 首页
+      //-   a(onclick='pre()' href='#') 上一页        
+      //-   a(onclick='next()' href='#') 下一页
+      //-   a(href="list?pageNo="+pageCount) 尾页
+      //- script.
+      //-   function next(){
+      //-     var currentpage='#{currentPage}';
+      //-     var pagecount='#{pageCount}';
+      //-     console.log(currentpage);
+      //-     if(++currentpage>pagecount){
+      //-       alert('已经到达最后一页了');
+      //-       return;
+      //-     }
+      //-     window.location.href = 'list?pageNo=' + currentpage;
+      //-   }  
+      //-   function pre(){
+      //-     var currentpage='#{currentPage}';
+      //-     var pagecount='#{pageCount}';
+      //-     if(--currentpage==0){
+      //-       alert('已经到达第一页了');
+      //-       currentpage=1;
+      //-       return;
+      //-     }
+      //-      window.location.href = 'list?pageNo=' + currentpage;
+      //-   }

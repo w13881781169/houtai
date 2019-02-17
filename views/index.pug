@@ -1,0 +1,77 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel="shortcut icon", href="img/f.ico", type="image/x-icon")
+    title Document
+    link(rel="stylesheet", href="css/index.css")   
+    script(src='js/jquery-3.3.1.min.js')
+    script.
+      $(function() {
+      $('.leftbox h4').click(function() {
+      $(this).next().slideToggle('slow');
+      $(this).toggleClass('on');
+      })
+      $('.childlist li a').click(function() {
+      $('.webmessage').text($(this).text());
+      $('.childlist li a').removeClass('on');
+      $(this).addClass('on');
+      })
+      })
+  body
+    h1
+      -if(headurl) 
+        img.logo(src=headurl)
+      -else 
+        img.logo(src='img/y.jpg')
+      span.ht 后台管理中心
+      p(class='admin1') 欢迎回来
+        span #{username}
+    .container
+      .leftbox
+        ul.menulist
+          h3
+            i.iconfont 
+            | 菜单列表
+          li
+            h4
+              i.iconfont.icon 
+              |  用户管理
+            ul.childlist
+              li
+                a(href='add', target='right')
+                  span.square
+                  | 添加用户
+              li
+                a(href='list', target='right')
+                  span.square
+                  | 用户列表
+          li
+            h4
+              i.iconfont.icon 
+              | 商品管理
+            ul.childlist
+              li
+                a(href='addtype', target='right')
+                  span.square
+                  | 添加商品类型
+              li
+                a(href='addproduct', target='right')
+                  span.square
+                  | 添加商品    
+              li
+                a(href='productlist',target='right')
+                  span.square
+                  | 商品列表
+      .rightbox
+        ul.rightlist
+          li
+            a(href='') 首页 /
+          li
+            a.webmessage(href='') 网站信息
+          li
+            a(href='loginout') 退出登录  
+        .admin
+          iframe(scrolling='auto', src='info.html', name='right', width='100%', height='100%', frameborder='0' class='pad')

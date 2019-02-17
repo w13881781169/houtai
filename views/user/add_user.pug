@@ -1,0 +1,158 @@
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title 添加客户
+    style(type='text/css').
+      table {
+      background-color: #CCCCCC;
+      border: 1px;
+      width: 100%;
+      }
+      table tr {
+      height: 20px;
+      }
+      table tr div {
+      text-align: right;
+      }
+      td font {
+      color: red;
+      }
+      .mylable{
+      color: red;
+      font-size: 12px;
+      }
+  body
+    div
+      form(name='client_form', action='/add', method='post' enctype="multipart/form-data")
+        table
+          tbody
+            tr(bgcolor='#f5f5f5')
+              td
+                div
+                  font *
+                  |  姓名:
+              td#boxtd
+                input#clientname(type='text', name='clientname', value='', size='30') 
+            tr(bgcolor='#f0f0f0')
+              td
+                div
+                  font *
+                  |  密码:
+              td
+                input#password(type='password', name='password', value='', size='30')
+            tr(bgcolor='#f0f0f0')
+              td
+                div
+                  font *
+                  |  上传头像:
+              td
+                input#password(type='file', name='head',size='30')    
+            tr(bgcolor='#f5f5f5')
+              td
+              td(colspan='2')
+                input(type='submit', value='提交')
+                input(type='reset', value='重置')
+            script.
+                  function ajax(json){
+                    var method=json.method;
+                    var url=json.url;
+                    var content=json.content;
+                    var xhr=null;
+                    if (window.XMLHttpRequest) {
+                    xhr = new window.XMLHttpRequest;
+                } else {
+                    // 兼容IE浏览器低版本
+                    xhr=new window.AtiveXObject("Microsoft.XMLHTTP");
+                }
+                if (xhr!=null){
+                   xhr.open(method, url, true); // 建立连接
+                   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); // 请求头部
+                   xhr.send(content);
+                   xhr.onreadystatechange = function (e) {
+                          if (e.target.readyState === 4) { // Ajax请求的状态 0, 1, 2, 3, 4:响应完成
+                              if (e.target.status === 200) { // 响应状态码
+                                  var text = e.target.responseText;
+                                  json.success(text);
+                          }
+                      }
+                  }
+                }
+                  }
+                var tdElement = document.getElementById('boxtd');
+                var nameElement = document.getElementById('clientname');
+                nameElement.onblur = function () {
+                  ajax({
+                method: 'post',
+                url: '/checkuser',
+                content: 'username=' + nameElement.value,
+                success: function (data) {
+                    console.log(data);
+                    var json = JSON.parse(data);
+                    //判断tdElement最后一个元素的前一个元素节点名称是否是SPAN,如果是SPAN将其移除
+                    if (tdElement.lastChild.nodeName == 'SPAN') {
+                        tdElement.removeChild(tdElement.lastChild); //移除tdElement最后一个元素的前一个元素节点,即新添加的元素节点
+                    }
+                    if (json.code === 1) {
+                        var newSpan = document.createElement('span'); //创建新节点 span
+                        newSpan.innerHTML = json.message; // 给新节点添加内容
+                        tdElement.insertBefore(newSpan, nameElement.nextSibling); //在tdElement元素节点下，nameElement节点后一个元素前插入新节点newSpan,
+                    }
+                }
+                 });
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              //-     function getXHR() {
+              //-   if (window.XMLHttpRequest) {
+              //-       return new window.XMLHttpRequest;
+              //-   } else {
+              //-       // 兼容IE浏览器低版本
+              //-       new window.AtiveXObject("Microsoft.XMLHTTP");
+              //-   }
+              //- }
+              //-   var nameElement = document.getElementById('clientname');
+              //-   var tdElement = document.getElementById('boxtd');
+              //-   nameElement.onblur = function () {
+              //-       var xhr = getXHR(); // 获取 XMLHttpRequest对象
+              //-       xhr.open('post', '/checkuser', true); //建立连接
+              //-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // 请求头部
+              //-       xhr.send('username='+nameElement.value); //发送请求
+       
+              //-       //接收axja响应
+              //-       xhr.onreadystatechange = function (e) {
+              //-           if (e.target.readyState == 4) { // Ajax请求的状态 0, 1, 2, 3, 4:响应完成
+              //-               if (e.target.status == 200) { // 响应状态码
+              //-               var json=JSON.parse(e.target.responseText);
+              //-               if(json.code==1){
+              //-                 var newspan=document.createElement('span');
+              //-                 newspan.innerHTML=json.message;
+              //-                 tdElement.insertBefore(newspan, nameElement.nextSibling);
+              //-               }else{
+              //-                   console.log('DWQDQW ' + tdElement.lastChild.nodeName)
+                                
+              //-                   if (tdElement.lastChild.nodeName == 'SPAN') {
+              //-                   tdElement.removeChild(tdElement.lastChild); //移除tdElement最后一个元素的前一个元素节点,即新添加的元素节点
+              //-               } 
+              //-                 }
+              //-                   //alert(e.target.responseText); // 显示响应内容 responseText
+              //-               } else {
+              //-                   alert(e.target.status + 'e.target.status ' + e);
+              //-               }
+              //-           }
+              //-       }
+              //-   }

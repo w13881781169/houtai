@@ -1,0 +1,66 @@
+doctype html
+html
+  head(lang='en')
+    meta(charset='UTF-8')
+    title 商品列表
+    //- link(href='css/tables.css', rel='stylesheet')
+    link(href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
+  body
+    .emp_contaner(style='text-align: center;')
+      h2 商品列表
+      table(class='table table-bordered table-hover text-center' style='vertical-align: middle !important;')
+        tbody
+          tr(class='text-center')
+            th 序号
+            th 商品名
+            th 商品介绍
+            th 新价格
+            th 老价格
+            th 商品图片
+            th 商品折扣
+            th 类别编号
+            th(colspan='2') 操作
+        each val in userlist
+          tr
+            td #{val.id}
+            td #{val.name}
+            td #{val.produce}
+            td #{val.newprice}
+            td #{val.oldprice}
+            td
+              -if(val.img) 
+                img(src=val.img, width='80px', height='80px')
+              -else 
+                 img(src='img/y.jpg', width='80px', height='80px')
+            td #{val.discount}
+            td #{val.typeid}
+            td 
+              a(href='productdelete?uid='+ val.id,class='btn btn-link') 删除
+            td
+              a(href='productupdate?uid='+val.id, target="right" class='btn btn-link') 修改
+      div
+        ul(class='pagination',id='pagination')
+      script(src="js/jquery-3.3.1.min.js")
+      script(src="js/jqPaginator.js")
+      script.
+              var currentNo = '#{currentPage}';
+              currentNo = parseInt(currentNo);
+              var pageCount = '#{pageCount}';
+              pageCount = parseInt(pageCount);
+
+              $.jqPaginator('#pagination', {
+                  totalPages: pageCount,
+                  visiblePages: 2,
+                  currentPage: currentNo,
+                  first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+                  prev: '<li class="prev"><a href="javascript:;">前一页</a></li>',
+                  next: '<li class="next"><a href="javascript:void(0);">下一页</a></li>',
+                  last: '<li class="last"><a href="javascript:void(0);">尾页</a></li>',
+                  page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                  onPageChange: function (num, type) {
+                      if (type == 'change') {
+                          //这里是点击分页的回调
+                          window.location.href = 'productlist?pageNo=' + num;
+                      }
+                  }
+              });

@@ -1,0 +1,32 @@
+html
+    head
+        title 登录界面
+        meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
+        link(rel="stylesheet", href="css/login.css")
+        script.
+            if (self != top) {
+                top.location = self.location;  //iframe中窗口对象转换成父窗口对象
+            } 
+    body
+        div(class='main')
+            div(class='box')
+                img(src="./img/body.jpg" class='bgimg')
+                form(action="/login" class='loginform' method='post')
+
+                    h1(class='title') 登录界面
+                    p(class='clearfix')
+                        span(class='span') 用户名：
+                        input(type="text", name='username',placeholder='请输入用户名' ,class='input', value=-locals.username !=null?username:null)
+                    p(class='clearfix')
+                        span(class='span') 密码:
+                        input(type="password", name="password",placeholder='请输入密码' ,class='input', value=-locals.password !=null?password:null)
+                    div(class='save')
+                        input(type="checkbox", name="savepassword" checked)
+                        label(for="savepassword") 记住密码
+                    div(class='hidden')=-locals.error !=null?error:null
+                    p(class='clearfix')
+                        span(class='span')
+                        input(type="submit", value="登录" class='submit')
+                    p(class='clearfix')
+                        span(class='span')
+                        input(type="button", value="注册" class='submit' onclick="window.location.href='/register'")    

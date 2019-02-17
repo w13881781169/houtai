@@ -1,0 +1,46 @@
+.emp_contaner {
+    text-align: center;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 40px
+}
+
+table {
+    width: 1000px;
+    height: 50px;
+    border-collapse: collapse; /*设置表格的边框折叠成一个单一的边框*/
+    margin: 0 auto; /*设置表格居中*/
+    background-color: white;
+}
+
+table, tr, td, th {
+    border: 1px solid black; /*边框：大小 实线 颜色*/
+    text-align: center; /*表格内容居中*/
+    padding: 10px; /*内边距*/
+}
+
+th {
+    background-color: green;
+    color: white;
+}
+
+tr:hover {
+    color: #FF00FF;
+    background-color: #ADD8E6;
+}
+
+table a:link,table a:visited /* 未访问链接*/
+{
+    display: block;
+    font-weight: bold;
+    color: #F40;
+    background-color: #98bf21;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+}
+
+a:hover, a:active /* hover 鼠标移动到链接上,active鼠标点击时 */
+{
+    background-color: #7A991A;
+}
