@@ -12,7 +12,7 @@ function query (sql, parmerters, callback) {
         {
             host: 'localhost',
             user: 'root',
-            password: 'root',
+            password: '123456789',
             database: 'userdb',
         }
     );

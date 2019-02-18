@@ -28,6 +28,7 @@ html
                         input(type="checkbox", name="savepassword" checked)
                         label(for="savepassword") 记住密码
                     div(class='hidden')=-locals.error !=null?error:null
+                    div(class='hidden hidden1')
                     p(class='clearfix')
                         span(class='span')
                         input(type="submit", value="登录" class='submit')
@@ -50,9 +51,9 @@ html
                                 data: 'code=' + $(this).val(),
                                 dataType: "json", //预期的服务器响应的数据类型;  json  |  html/text
                                 success: function (result) {
-                                    $('.hidden').remove();
+                                    $('.hidden1').empty();
                                     if (result.code === 1) {
-                                        $('.hidden').text(result.message);
+                                        $('.hidden1').html(result.message);
                                     }
                                 },
                                 error: function (xhr, status, error) { //如果请求失败要运行的函数。
