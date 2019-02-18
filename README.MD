@@ -30,6 +30,7 @@
 		    res.end();
 		});
 调用 create() 之后，会返回一个对象，结构如下：{data:'',text:''}
+
          ```
 	     data：验证码 svg 图片
 	     text: 验证码字符
